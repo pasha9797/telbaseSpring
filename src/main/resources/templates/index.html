@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Subscribers</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/materialize.min.css}" media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body class="theBody">
+<h1 class="center-align">Subscribers database</h1>
+<br/>
+<div>
+    <table class="highlight">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone 1</th>
+                <th>Phone 2</th>
+                <th>Phone 3</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each ="subscriber : ${subscribers}">
+            <td th:utext="${subscriber.name}">...</td>
+            <td th:utext="${subscriber.getPhone(0)}">...</td>
+            <td th:utext="${subscriber.getPhone(1)}">...</td>
+            <td th:utext="${subscriber.getPhone(2)}">...</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="fixed-action-btn">
+        <a id="addButton" th:href="@{/addSubscriber.html}" class="btn-floating btn-large waves-effect waves-light">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+</div>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+</body>
+</html>
