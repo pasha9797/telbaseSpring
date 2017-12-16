@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>fdghfh</title>
+    <meta charset="UTF-8"/>
+    <title th:text="${subscriber.name}">...</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -12,49 +12,342 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<h1 class="center-align">Add new Subscriber</h1>
-
-<form th:action="@{/addSubscriber}"
-      th:object="${addForm}" method="POST">
-    <div class="row">
-        <div class="input-field col s6 offset-s3">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="name" type="text" th:field="*{name}" class="validate"/>
-            <label for="name">Subscriber name</label>
+<h1 class="center-align">Subscriber profile</h1>
+<div class="row">
+    <div class="col s12 m12 l6 offset-l3">
+        <div class="row">
+            <div class="col s3">
+                <i class="medium material-icons">account_circle</i>
+            </div>
+            <div class="col s7">
+                <h4 th:text=" ${subscriber.name}">...</h4>
+            </div>
+            <div class="col s2">
+                <a id="name-trigger" href="#!" class="btn-floating btn-large waves-effect waves-light">
+                    <i class="material-icons left">edit</i>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <form id="name-form" class="scale-transition scale-out" method="POST">
+                    <input id="newName" name="newName" type="text" placeholder="Input new name"
+                           th:value="${subscriber.name}"
+                           class="validate"/>
+                    <input type="submit" style="visibility: hidden;"/>
+                </form>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="input-field col s4">
-            <i class="material-icons prefix">phone</i>
-            <input id="phone1" type="text" th:field="*{phone1}" class="validate"/>
-            <label for="phone1">First phone</label>
+<div class="row">
+    <div class="col s12 m6 l4">
+        <div class="row">
+            <div class="col s2">
+                <i class="small material-icons">phone</i>
+            </div>
+            <div class="col s8">
+                <h5 th:text=" ${subscriber.getPhone(1)}">...</h5>
+            </div>
+            <div class="col s2">
+                <a id="phone1-trigger" href="#!" class="btn-floating btn-medium waves-effect waves-light">
+                    <i class="material-icons left">edit</i>
+                </a>
+            </div>
         </div>
-        <div class="input-field col s4">
-            <i class="material-icons prefix">phone</i>
-            <input id="phone2" type="text" th:field="*{phone2}" class="validate"/>
-            <label for="phone2">Second phone</label>
-        </div>
-        <div class="input-field col s4">
-            <i class="material-icons prefix">phone</i>
-            <input id="phone3" type="text" th:field="*{phone3}" class="validate"/>
-            <label for="phone3">Third phone</label>
+        <div id="phone1Edit" class="row scale-transition scale-out">
+            <div class="col s10">
+                <form id="phone1-form" method="POST">
+                    <input id="phone1" name="phone1" type="text" placeholder="Input new phone"
+                           th:value=" ${subscriber.getPhone(1)}"
+                           class="validate"/>
+                    <input type="submit" style="visibility: hidden;"/>
+                </form>
+            </div>
+            <div class="col s1">
+                <a id="deletePhone1Button" href="#!" class="btn-floating btn-medium waves-effect waves-light red">
+                    <i class="material-icons">delete</i>
+                </a>
+            </div>
         </div>
     </div>
-    <input type="submit" style="visibility: hidden;" />
-</form>
+    <div class="col s12 m6 l4">
+        <div class="row">
+            <div class="col s2">
+                <i class="small material-icons">phone</i>
+            </div>
+            <div class="col s8">
+                <h5 th:text=" ${subscriber.getPhone(2)}">...</h5>
+            </div>
+            <div class="col s2">
+                <a id="phone2-trigger" href="#!" class="btn-floating btn-medium waves-effect waves-light">
+                    <i class="material-icons left">edit</i>
+                </a>
+            </div>
+        </div>
+        <div id="phone2Edit" class="row scale-transition scale-out">
+            <div class="col s10">
+                <form id="phone2-form" method="POST">
+                    <input id="phone2" name="phone2" type="text" placeholder="Input new phone"
+                           th:value=" ${subscriber.getPhone(2)}"
+                           class="validate"/>
+                    <input type="submit" style="visibility: hidden;"/>
+                </form>
+            </div>
+            <div class="col s1">
+                <a id="deletePhone2Button" href="#!" class="btn-floating btn-medium waves-effect waves-light red">
+                    <i class="material-icons">delete</i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m12 l4">
+        <div class="row">
+            <div class="col s2">
+                <i class="small material-icons">phone</i>
+            </div>
+            <div class="col s8">
+                <h5 th:text=" ${subscriber.getPhone(3)}">...</h5>
+            </div>
+            <div class="col s2">
+                <a id="phone3-trigger" href="#!" class="btn-floating btn-medium waves-effect waves-light">
+                    <i class="material-icons left">edit</i>
+                </a>
+            </div>
+        </div>
+        <div id="phone3Edit" class="row scale-transition scale-out">
+            <div class="col s10">
+                <form id="phone3-form" method="POST">
+                    <input id="phone3" name="phone3" type="text" placeholder="Input new phone"
+                           th:value=" ${subscriber.getPhone(3)}"
+                           class="validate"/>
+                    <input type="submit" style="visibility: hidden;"/>
+                </form>
+            </div>
+            <div class="col s1">
+                <a id="deletePhone3Button" href="#!" class="btn-floating btn-medium waves-effect waves-light red">
+                    <i class="material-icons">delete</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- Check if errorMessage is not null and not empty -->
-<div class = "row">
+<div class="row">
     <div class="col s8 offset-s2">
-        <div class="card-panel white-text teal lighten-2" th:if="${errorMessage}" th:utext="${errorMessage}">
+        <div id="errorMsg" class="card-panel white-text teal lighten-2 scale-transition scale-out">
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="fixed-action-btn col s2">
+        <a id="backButton" class="waves-effect waves-light btn"><i class="material-icons left">arrow_back</i>Back</a>
+    </div>
+
+    <div class="fixed-action-btn">
+        <a id="deleteButton" href="#!" class="btn-floating btn-large waves-effect waves-light red">
+            <i class="material-icons">delete</i>
+        </a>
     </div>
 </div>
 
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var name = [[${subscriber.name}]];
+
+        $("#name-trigger").click(function () {
+            var attr = "scale-in";
+            if (!$("#name-form").hasClass(attr)) {
+                $("#name-form").addClass(attr);
+            }
+            else {
+                $("#name-form").removeClass(attr);
+            }
+
+        });
+        $("#phone1-trigger").click(function () {
+            var attr = "scale-in";
+            if (!$("#phone1Edit").hasClass(attr)) {
+                $("#phone1Edit").addClass(attr);
+            }
+            else {
+                $("#phone1Edit").removeClass(attr);
+            }
+        });
+        $("#phone2-trigger").click(function () {
+            var attr = "scale-in";
+            if (!$("#phone2Edit").hasClass(attr)) {
+                $("#phone2Edit").addClass(attr);
+            }
+            else {
+                $("#phone2Edit").removeClass(attr);
+            }
+        });
+        $("#phone3-trigger").click(function () {
+            var attr = "scale-in";
+            if (!$("#phone3Edit").hasClass(attr)) {
+                $("#phone3Edit").addClass(attr);
+            }
+            else {
+                $("#phone3Edit").removeClass(attr);
+            }
+        });
+
+        $("#deleteButton").click(function () {
+            if (confirm("Do you wish to delete user " + name + "?")) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/api/delete/" + name,
+                    success: function () {
+                        $(location).attr('href', "/index");
+                    }
+                });
+            }
+        });
+
+        $("#backButton").click(function () {
+            $(location).attr('href', "/index");
+        });
+
+        $("#deletePhone1Button").click(function () {
+            if (confirm("Do you wish to delete phone?")) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/api/deletePhone/" + name + "/1",
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function (msg) {
+                        showError(msg.responseText);
+                    }
+                });
+            }
+        });
+
+        $("#deletePhone2Button").click(function () {
+            if (confirm("Do you wish to delete phone?")) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/api/deletePhone/" + name + "/2",
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function (msg) {
+                        showError(msg.responseText);
+                    }
+                });
+            }
+        });
+
+        $("#deletePhone3Button").click(function () {
+            if (confirm("Do you wish to delete phone?")) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/api/deletePhone/" + name + "/3",
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function (msg) {
+                        showError(msg.responseText);
+                    }
+                });
+            }
+        });
+
+        $("#name-form").submit(function (event) {
+            var newName = $("#newName").val();
+            if(newName.length>0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/editName/" + name + "/" + newName,
+                    success: function () {
+                        $(location).attr('href', "/subscriberProfile?name=" + newName);
+                    },
+                    error: function (msg) {
+                        showError(msg.responseText);
+                    }
+                });
+            }
+            else{
+                showError("Please write new name");
+            }
+            event.preventDefault();
+        });
+
+        $("#phone1-form").submit(function (event) {
+            var phone = $("#phone1").val();
+            if(phone.length>0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/editPhone/" + name + "/1/" + phone,
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function (msg) {
+                        showError(msg.responseText);
+                    }
+                });
+            }
+            else{
+                showError("Please write new phone");
+            }
+            event.preventDefault();
+        });
+
+        $("#phone2-form").submit(function (event) {
+            var phone = $("#phone2").val();
+            if(phone.length>0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/editPhone/" + name + "/2/" + phone,
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function (msg) {
+                        showError(msg.responseText);
+                    }
+                });
+            }
+            else{
+                showError("Please write new phone");
+            }
+            event.preventDefault();
+        });
+
+        $("#phone3-form").submit(function (event) {
+            var phone = $("#phone3").val();
+            if(phone.length>0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/editPhone/" + name + "/3/" + phone,
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function (msg) {
+                        showError(msg.responseText);
+                    }
+                });
+            }
+            else{
+                showError("Please write new phone");
+            }
+            event.preventDefault();
+        });
+
+    });
+
+    function showError(msg){
+        $("#errorMsg").addClass("scale-in");
+        $("#errorMsg").html(msg);
+    }
+</script>
 </body>
 </html>

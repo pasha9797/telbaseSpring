@@ -39,11 +39,11 @@ public class SubscriberDTO {
     }
 
     public String getPhone(int phoneID){
-        if(phoneID>=phones.size()){
+        if(phoneID>phones.size() || phoneID<1){
             return "Not saved";
         }
         else{
-            return phones.get(phoneID).getWholeNumber();
+            return phones.get(phoneID-1).getWholeNumber();
         }
     }
 

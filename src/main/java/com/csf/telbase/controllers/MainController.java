@@ -3,6 +3,8 @@ package com.csf.telbase.controllers;
 import com.csf.telbase.models.dto.PhoneNumberDTO;
 import com.csf.telbase.models.dto.SubscriberDTO;
 import com.csf.telbase.models.forms.AddSubscriberForm;
+import com.csf.telbase.models.forms.ChangeNameForm;
+import com.csf.telbase.models.forms.ChangePhoneForm;
 import com.csf.telbase.services.SubscriberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,4 +63,18 @@ public class MainController {
             return "addSubscriber";
         }
     }
+
+    @RequestMapping(value = { "/subscriberProfile" }, method = RequestMethod.GET)
+    public String getProfile(Model model, @ModelAttribute("name") String name) {
+        try{
+        SubscriberDTO subscriber =subscriberService.get(name);
+            model.addAttribute("subscriber", subscriber);
+            return "subscriberPage";
+        }
+        catch (Exception e){
+            return "redirect:/index";
+        }
+    }
+
+
 }

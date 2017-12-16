@@ -90,38 +90,43 @@ public class ConsoleController implements CommandLineRunner {
     }
 
     private void parseEdit() {
-        String name;
-        SubscriberDTO ab;
-        if (!subscriberService.getAll().iterator().hasNext()) {
-            System.out.println("Error: database is empty.");
-            return;
-        }
-        System.out.println("Write abonent name");
-        name = in.nextLine();
-        ab = subscriberService.get(name);
-        if (ab == null) {
-            System.out.println("Error: no such abonent in database.");
-            return;
-        }
+        try {
+            String name;
+            SubscriberDTO ab;
+            if (!subscriberService.getAll().iterator().hasNext()) {
+                System.out.println("Error: database is empty.");
+                return;
+            }
+            System.out.println("Write abonent name");
+            name = in.nextLine();
+            ab = subscriberService.get(name);
+            if (ab == null) {
+                System.out.println("Error: no such abonent in database.");
+                return;
+            }
 
-        System.out.println("Write option:\n 1 - Change name\n 2 - Change number \n 3 - Add number\n 4 - Delete Number");
-        int pid;
-        pid = readPositiveInt();
-        if (pid == -1) return;
+            System.out.println("Write option:\n 1 - Change name\n 2 - Change number \n 3 - Add number\n 4 - Delete Number");
+            int pid;
+            pid = readPositiveInt();
+            if (pid == -1) return;
 
-        proceedOption(ab, pid);
+            proceedOption(ab, pid);
+        }
+        catch(Exception e){System.out.println(e.getMessage());}
     }
 
     private void parseDelete() {
-        String name;
-        if (!subscriberService.getAll().iterator().hasNext()) {
-            System.out.println("Error: database is empty.");
-            return;
+        try {
+            String name;
+            if (!subscriberService.getAll().iterator().hasNext()) {
+                System.out.println("Error: database is empty.");
+                return;
+            }
+            System.out.println("Write name.");
+            name = in.nextLine();
+            subscriberService.delete(name);
         }
-        System.out.println("Write name.");
-        name = in.nextLine();
-        if (!subscriberService.delete(name))
-            System.out.println("Error: no such abonent in database.");
+        catch(Exception e){System.out.println(e.getMessage());}
     }
 
     private void proceedOption(SubscriberDTO ab, int option) {

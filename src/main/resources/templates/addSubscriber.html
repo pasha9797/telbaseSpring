@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Add Person</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,7 +14,7 @@
 <body>
 <h1 class="center-align">Add new Subscriber</h1>
 
-<form th:action="@{/addSubscriber}"
+<form id="addForm" th:action="@{/addSubscriber}"
       th:object="${addForm}" method="POST">
     <div class="row">
         <div class="input-field col s6 offset-s3">
@@ -41,20 +41,64 @@
             <label for="phone3">Third phone</label>
         </div>
     </div>
-    <input type="submit" style="visibility: hidden;" />
+    <input type="submit" style="visibility: hidden;"/>
 </form>
 
 
 <!-- Check if errorMessage is not null and not empty -->
-<div class = "row">
+<div class="row">
     <div class="col s8 offset-s2">
         <div class="card-panel white-text teal lighten-2" th:if="${errorMessage}" th:utext="${errorMessage}">
         </div>
     </div>
 </div>
 
+<div class="row">
+    <div class="fixed-action-btn left-align col s2">
+        <a id="backButton" class="waves-effect waves-light btn"><i class="material-icons left">arrow_back</i>Back</a>
+    </div>
+</div>
+
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $("#backButton").click(function () {
+            $(location).attr('href', "/index");
+        });
+
+        $("#addForm").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 7
+                },
+                phone1: {
+                    required: true,
+                    minlength: 11
+                }
+            },
+            //For custom messages
+            messages: {
+                name:{
+                    required: "Enter subscriber name",
+                    minlength: "Enter at least 7 characters"
+                }
+            },
+            errorElement : 'div',
+            errorPlacement: function(error, element) {
+                var placement = $(element).data('error');
+                if (placement) {
+                    $(placement).append(error)
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

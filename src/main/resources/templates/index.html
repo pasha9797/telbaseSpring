@@ -24,12 +24,12 @@
                 <th>Phone 3</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="subTable">
         <tr th:each ="subscriber : ${subscribers}">
-            <td th:utext="${subscriber.name}">...</td>
-            <td th:utext="${subscriber.getPhone(0)}">...</td>
+            <td class="subName" th:utext="${subscriber.name}">...</td>
             <td th:utext="${subscriber.getPhone(1)}">...</td>
             <td th:utext="${subscriber.getPhone(2)}">...</td>
+            <td th:utext="${subscriber.getPhone(3)}">...</td>
         </tr>
         </tbody>
     </table>
@@ -44,5 +44,20 @@
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+
+
+<script>
+    $(document).ready(function()
+    {
+        $('#subTable').on('click', 'tr', function()
+        {
+            var name = $(this).find('.subName').html();
+            var url = "/subscriberProfile?name="+name;
+            $(location).attr('href',url);
+            return false;
+        });
+    });
+</script>
+
 </body>
 </html>
